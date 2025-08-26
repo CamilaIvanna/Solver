@@ -768,6 +768,9 @@ footer{
   .servicios-dashboard, .precios-dashboard{
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
   }
   .precios-dashboard .item a{
     width: 60vw;
@@ -809,6 +812,9 @@ footer{
   .dashboard-ppal {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
   }
   .item a, .itemmv{
     width: 70vw !important;
