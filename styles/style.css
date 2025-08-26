@@ -767,6 +767,9 @@ footer{
   .precios-dashboard .item a{
     width: 60vw;
   }
+  .nav li a{
+    font-size: small;
+  }
  }
 
  @media screen and (max-width: 467px) {
