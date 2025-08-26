@@ -638,63 +638,86 @@ footer{
 .item-precios a{
   height: 19.5rem;
 }
-/* Modal base */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 9999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.6);
+
+:root{
+  --header-h: 10vh;   /* altura del header fijo */
+  --modal-pad: 20px;  /* aire del overlay */
 }
 
-/* Contenido del modal */
-.modal-content {
-  background-color: #fff;
-  margin: 5% auto;
-  padding: 2rem;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 700px;
-  font-family: sans-serif;
-  color: #333;
+/* --- Overlay: CERRADO por defecto --- */
+.modal{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,.6);
+  display: none;  /* ← No se abre al cargar */
+  padding: calc(var(--header-h) + var(--modal-pad)) var(--modal-pad) var(--modal-pad);
+  /* Centrado robusto con Flex */
+  align-items: center;      /* vertical */
+  justify-content: center;  /* horizontal */
 }
+
+/* --- ABIERTO: se centra con Flex --- */
+.modal.is-open{
+  display: flex !important;
+}
+
+/* --- Caja del modal --- */
+.modal-content{
+  /* Se adapta al contenido, con límites responsivos */
+  width: clamp(320px, 92vw, 720px);
+  height: auto;                           /* ← sin altura forzada */
+  max-height: calc(100svh - (var(--header-h) + 2 * var(--modal-pad)));
+  overflow: auto;                         /* scroll interno solo si hace falta */
+  background: #fff;
+  color: #333;
+  border-radius: 16px;                    /* bordes redondeados */
+  padding: 20px 22px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.3);
+  box-sizing: border-box;
+  margin: 0;                              /* evita desplazamientos laterales */
+  align-self: center;                     /* por si el contenedor flex cambia */
+}
+
+/* Accesibilidad al enfocar con teclado */
+.modal-content:focus{ outline: 2px solid #21734633; outline-offset: 2px; }
 
 /* Botón cerrar */
-.close {
-  color: #aaa;
+.close{
   float: right;
   font-size: 28px;
-  font-weight: bold;
+  line-height: 1;
   cursor: pointer;
+  color: #666;
 }
+.close:hover{ color:#000; }
 
-.close:hover {
-  color: #000;
-}
+/* Listas internas */
+.modal-content ul{ list-style: none; padding-left: 0; margin: 0; }
+.modal-content li{ margin: .8rem 0; line-height: 1.6; }
 
-/* Lista dentro del modal */
-.modal-content ul {
-  list-style-type: none;
-  padding-left: 0;
-}
+/* Bloquear scroll del fondo cuando el modal está abierto */
+.body--lock{ overflow: hidden; }
 
-.modal-content li {
-  margin-bottom: 1rem;
-  line-height: 1.6;
-}
-
-/* Botón de abrir (puedes personalizarlo más) */
-
-.img-footer{
-  height: 15vh;
+/* Ajustes móviles */
+@media (max-width: 600px){
+  .modal-content{
+    border-radius: 12px;
+    padding: 16px 14px;
+  }
 }
 
 /* Tablet (entre 600px y 1023px) */
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1200px) {
+  .contenedor-dashboard{
+    min-width: 80vw;
+  }
+  .item a, .itemmv a{
+    width: 30vw ;
+  }
+.item-servicios a{
+  width: 65vw;
+}
     body {
         font-size: 17px;
     }
@@ -730,6 +753,20 @@ footer{
   .inicio div{
     font-size: 1.5rem;
   }
+  .mision-vision{
+    display: flex;
+    flex-direction: column;
+  }
+  .itemmv a{
+    width: 65vw;
+  }
+  .servicios-dashboard, .precios-dashboard{
+    display: flex;
+    flex-direction: column;
+  }
+  .precios-dashboard .item a{
+    width: 60vw;
+  }
  }
 
  @media screen and (max-width: 467px) {
@@ -748,9 +785,25 @@ footer{
   .solver-name{
     display: none;
   }
+  .contenedor-dashboard{
+    min-width: 90vw !important;
+  }
+
+ }
+ @media screen and (max-width: 377px) {
+  .dashboard-ppal {
+    display: flex;
+    flex-direction: column;
+  }
+  .item a, .itemmv{
+    width: 70vw !important;
+  }
  }
 /* Móvil (menos de 600px) */
 @media screen and (max-width: 599px) {
+  .contenedor-dashboard{
+    min-width: 80vw;
+  }
     .inicio div{
     font-size: 1rem;
   }
@@ -781,7 +834,7 @@ footer{
 
 .item a {
   width: 9rem;
-  height: 9rem;
+  height: auto;
   padding: 1rem;
   box-sizing: border-box;
 }
@@ -792,7 +845,7 @@ footer{
     justify-content: center;
   }
   .contenedor-dashboard{
-    min-width: 20rem;
+
     max-width: 50%;
     padding: 1rem;
   }

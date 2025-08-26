@@ -90,3 +90,60 @@ fetch('/html/footer.html')
   startAutoplay();
   window.addEventListener("resize", () => goToSlide(index));
 })();
+
+(function () {
+  const $ = (sel, ctx=document) => ctx.querySelector(sel);
+
+  // Botones
+  const btnGarantias          = $("#btnGarantias");
+  const btnConfidencialidad   = $("#btnConfidencialidad");
+  const btnReglamentoCliente  = $("#btnReglamentoCliente");
+  const btnNuestroEquipo      = $("#btnNuestroEquipo");
+
+  // Modales
+  const modalGarantias        = $("#modalGarantias");
+  const modalConfidencialidad = $("#modalConfidencialidad");
+  const modalReglamento       = $("#modalReglamentoCliente");
+  const modalEquipo           = $("#modalNuestroEquipo");
+
+  // Funciones
+  const openModal = (modal) => {
+    if(!modal) return;
+    modal.classList.add("is-open");
+    document.body.classList.add("body--lock");
+    // Accesibilidad: foco al contenido
+    const content = modal.querySelector(".modal-content");
+    if (content) content.setAttribute("tabindex","-1"), content.focus();
+  };
+
+  const closeModal = (modal) => {
+    if(!modal) return;
+    modal.classList.remove("is-open");
+    document.body.classList.remove("body--lock");
+  };
+
+  // Abrir
+  btnGarantias?.addEventListener("click", () => openModal(modalGarantias));
+  btnConfidencialidad?.addEventListener("click", () => openModal(modalConfidencialidad));
+  btnReglamentoCliente?.addEventListener("click", () => openModal(modalReglamento));
+  btnNuestroEquipo?.addEventListener("click", () => openModal(modalEquipo));
+
+  // Cerrar por botón X
+  document.querySelectorAll(".modal .close").forEach(x=>{
+    x.addEventListener("click", (e) => closeModal(e.target.closest(".modal")));
+  });
+
+  // Cerrar clic fuera del cuadro
+  document.querySelectorAll(".modal").forEach(overlay=>{
+    overlay.addEventListener("click", (e)=>{
+      if (e.target === overlay) closeModal(overlay);
+    });
+  });
+
+  // Cerrar con ESC
+  document.addEventListener("keydown", (e)=>{
+    if (e.key === "Escape") {
+      document.querySelectorAll(".modal.is-open").forEach(m=>closeModal(m));
+    }
+  });
+})();
