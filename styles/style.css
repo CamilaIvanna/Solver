@@ -203,6 +203,10 @@ ul{
     grid-template-columns: repeat(2, 1fr);
     width: 100%;
     gap: 1rem;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 1rem;
+    justify-items: center;
 }
 .container-grid{
   display: grid;
@@ -220,12 +224,13 @@ ul{
   }
 }
 .item a{
-    height: 9rem;
+    height: auto;
     width: 20vw;
     padding: 1rem;
     border-radius: 1rem;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); 
     transition: box-shadow 0.3s ease;
+    text-align: center;
 }
 .item a:hover {
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4); 
@@ -768,7 +773,7 @@ footer{
     width: 60vw;
   }
   .nav li a{
-    font-size: small;
+    font-size: .7rem;
   }
  }
 
