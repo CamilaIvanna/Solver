@@ -788,6 +788,13 @@ footer{
   .contenedor-dashboard{
     min-width: 90vw !important;
   }
+    .dashboard-ppal {
+    display: flex;
+    flex-direction: column;
+  }
+  .item a, .itemmv{
+    width: 70vw !important;
+  }
 
  }
  @media screen and (max-width: 377px) {
